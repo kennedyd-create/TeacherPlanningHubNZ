@@ -686,35 +686,6 @@
         <div id="teaching-profile-body"></div>
     </div>
 
-    <div id="local-context-modal" class="hidden fixed inset-0 z-[120] bg-slate-900/50 backdrop-blur-sm flex items-center justify-center p-4" onclick="if(event.target===this)closeLocalContextModal()">
-        <div class="bg-white rounded-2xl p-6 max-w-md w-full shadow-2xl" role="dialog" aria-modal="true" aria-labelledby="local-context-title">
-            <h3 id="local-context-title" class="text-lg font-black text-slate-900 mb-1">📍 Local Context</h3>
-            <p class="text-sm text-slate-500 mb-4">Tell the AI which real area to draw on. These details are saved on this device and used whenever "Use Local Context" is selected.</p>
-            <div class="space-y-3">
-                <div>
-                    <label class="text-xs font-bold text-slate-600 block mb-1">School / area name</label>
-                    <input type="text" id="local-context-school" placeholder="e.g. Your School Name" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm">
-                </div>
-                <div>
-                    <label class="text-xs font-bold text-slate-600 block mb-1">Postcode or town/suburb</label>
-                    <input type="text" id="local-context-postcode" placeholder="e.g. 1010 or Newtown" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm">
-                </div>
-                <div>
-                    <label class="text-xs font-bold text-slate-600 block mb-1">Local iwi / hapū (optional)</label>
-                    <input type="text" id="local-context-iwi" placeholder="e.g. Ngāti Whātua" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm">
-                </div>
-                <div>
-                    <label class="text-xs font-bold text-slate-600 block mb-1">Anything else worth knowing (optional)</label>
-                    <textarea id="local-context-notes" rows="2" placeholder="e.g. nearby river, local industry, a historic event" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm"></textarea>
-                </div>
-            </div>
-            <div class="flex gap-2 mt-5">
-                <button type="button" class="flex-1 px-4 py-2 rounded-lg text-sm font-bold bg-slate-100 text-slate-600 hover:bg-slate-200" onclick="closeLocalContextModal()">Cancel</button>
-                <button type="button" class="flex-1 px-4 py-2 rounded-lg text-sm font-bold bg-[var(--brand-dark-blue)] text-white hover:opacity-90" onclick="saveLocalContextModal()">Save</button>
-            </div>
-        </div>
-    </div>
-
     <div id="school-profile-modal" class="hidden fixed inset-0 z-[120] bg-slate-900/50 backdrop-blur-sm flex items-center justify-center p-4" onclick="if(!schoolProfileModalForced && event.target===this)closeSchoolProfileModal()">
         <div class="bg-slate-100 rounded-2xl p-6 max-w-3xl w-full shadow-2xl max-h-[90vh] overflow-y-auto border border-slate-300" role="dialog" aria-modal="true" aria-labelledby="school-profile-title">
             <h3 id="school-profile-title" class="text-lg font-black text-slate-900 mb-1">🏫 School Profile</h3>
@@ -790,6 +761,29 @@
                         <span><span class="text-sm font-bold text-slate-800 block">Community Context</span><span class="text-xs text-slate-500">Describe your community in your own words below. Used sparingly — only where it's a genuinely natural fit, never forced into every task.</span></span>
                     </label>
                     <textarea id="school-community-context-text" class="hidden w-full text-xs p-2 rounded-lg border border-slate-300" rows="3" placeholder="e.g. Many of our students are Samoan and Tongan; we value whānau/family connection in how we talk about things."></textarea>
+                </div>
+            </div>
+
+            <div id="school-local-area-section" class="mt-4 pt-4 border-t border-slate-300">
+                <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2">5. Local Area</p>
+                <div class="bg-teal-50 border-2 border-teal-200 rounded-xl p-3 space-y-3">
+                    <p class="text-xs text-slate-500">Set this once for the whole school, so a teacher doesn't have to type it in every time they turn on "Use Local Context" in the Lesson Builder, Unit Planner, Assessment Generator or Differentiate. All optional.</p>
+                    <div>
+                        <label class="text-xs font-bold text-slate-600 block mb-1">School / area name</label>
+                        <input type="text" id="school-local-name" placeholder="e.g. Your School Name" class="w-full text-xs p-2 rounded-lg border border-slate-300">
+                    </div>
+                    <div>
+                        <label class="text-xs font-bold text-slate-600 block mb-1">Postcode or town/suburb</label>
+                        <input type="text" id="school-local-postcode" placeholder="e.g. 1010 or Newtown" class="w-full text-xs p-2 rounded-lg border border-slate-300">
+                    </div>
+                    <div>
+                        <label class="text-xs font-bold text-slate-600 block mb-1">Local iwi / hapū (optional)</label>
+                        <input type="text" id="school-local-iwi" placeholder="e.g. Ngāti Whātua" class="w-full text-xs p-2 rounded-lg border border-slate-300">
+                    </div>
+                    <div>
+                        <label class="text-xs font-bold text-slate-600 block mb-1">Anything else worth knowing (optional)</label>
+                        <textarea id="school-local-notes" rows="2" placeholder="e.g. nearby river, local industry, a historic event" class="w-full text-xs p-2 rounded-lg border border-slate-300"></textarea>
+                    </div>
                 </div>
             </div>
 
@@ -1010,7 +1004,7 @@
                     </div>
                     <div class="mt-4 pt-4 border-t border-slate-200" id="les-ai-container">
                         <span class="text-[10px] font-bold text-slate-500 uppercase tracking-widest block mb-2">Student AI Use</span>
-                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2" id="les-ai-opts"><button class="builder-btn active text-left" data-action="lesson-state" data-key="ai" data-val="none">Standard</button><button class="builder-btn text-left" data-action="lesson-state" data-key="ai" data-val="plan">AI to plan</button><button class="builder-btn text-left" data-action="lesson-state" data-key="ai" data-val="collaborate">AI to collaborate</button><button class="builder-btn text-left" data-action="lesson-state" data-key="ai" data-val="critique">Critique the AI</button></div>
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2" id="les-ai-opts"><button class="builder-btn active text-left" data-action="lesson-state" data-key="ai" data-val="none">No AI Use</button><button class="builder-btn text-left" data-action="lesson-state" data-key="ai" data-val="plan">AI to plan</button><button class="builder-btn text-left" data-action="lesson-state" data-key="ai" data-val="collaborate">AI to collaborate</button><button class="builder-btn text-left" data-action="lesson-state" data-key="ai" data-val="critique">Critique the AI</button></div>
                         <p id="les-ai-hint" class="hidden text-[11px] text-slate-500 mt-2 leading-snug"></p>
                     </div>
                         </div>
@@ -1559,7 +1553,7 @@
                                         <span class="tooltip-wrapper ai-tip inline-flex items-center gap-1 px-2 py-0.5 rounded-full border border-amber-300 bg-amber-50 text-amber-800 text-[10px] font-bold cursor-help" tabindex="0" data-tooltip="Lessons labelled &quot;Specific AI lesson/s&quot; in your plan have an emphasis on AI use. Students do one planned AI task in them (Brain first, AI step, Check it, Own it), and the plan marks each one so you can see it at a glance. Every other lesson in the unit stays AI-free.">Specific AI lesson/s <span aria-hidden="true">ⓘ</span></span>
                                     </div>
                                     <div class="grid grid-cols-2 sm:grid-cols-4 gap-2" id="unit-ai-opts">
-                                        <button class="builder-btn active text-left" data-action="unit-state" data-key="ai" data-val="none">Standard</button>
+                                        <button class="builder-btn active text-left" data-action="unit-state" data-key="ai" data-val="none">No AI Use</button>
                                         <button class="builder-btn text-left" data-action="unit-state" data-key="ai" data-val="plan">AI to plan</button>
                                         <button class="builder-btn text-left" data-action="unit-state" data-key="ai" data-val="collaborate">AI to collaborate</button>
                                         <button class="builder-btn text-left" data-action="unit-state" data-key="ai" data-val="critique">Critique the AI</button>
@@ -2230,7 +2224,7 @@
 <div class="rounded-xl border border-purple-300 bg-purple-50 p-4"><span class="text-xs font-black text-purple-800 uppercase tracking-widest block mb-3">Curriculum</span>
                 
 
-<div class="mt-3"><span class="text-[10px] font-bold text-slate-500 uppercase tracking-widest block mb-1">Add to the assessment</span><div class="flex flex-wrap gap-2" id="assess-curric-chips"><button class="builder-btn text-left" data-action="assessment-state" data-key="context" data-val="local">Use Local Context</button><button class="builder-btn text-left" data-action="assessment-state" data-key="maori" data-val="integrate">Mātauranga Māori</button><button class="builder-btn text-left" data-action="assessment-state" data-key="lit" data-val="integrate">Literacy focus</button><button class="builder-btn text-left" data-action="assessment-state" data-key="num" data-val="integrate">Numeracy focus</button></div><p class="text-[10px] text-slate-500 mt-2 leading-snug">Click to switch on, click again to switch off. Nothing is added unless you switch it on.</p></div></div><div class="rounded-xl border border-purple-300 bg-purple-50 p-4" id="assess-devices-container"><span class="text-xs font-black text-purple-800 uppercase tracking-widest block mb-3">Device Use</span><div class="flex flex-col gap-2" id="assess-devices-opts"><button class="builder-btn text-left" data-action="assessment-state" data-key="devices" data-val="book">No devices (paper)</button><button class="builder-btn text-left" data-action="assessment-state" data-key="devices" data-val="some">Some devices</button><button class="builder-btn text-left" data-action="assessment-state" data-key="devices" data-val="all">All devices</button></div><p class="text-[10px] text-slate-500 mt-2 leading-snug">Click an option again to turn it off.</p><p id="assess-device-hint" class="hidden text-[11px] text-slate-500 mt-2 leading-snug"></p></div><div class="rounded-xl border border-purple-300 bg-purple-50 p-4" id="assess-ai-container"><span class="text-xs font-black text-purple-800 uppercase tracking-widest block mb-3">Student AI Use</span><div class="flex flex-col gap-2" id="assess-ai-opts"><button class="builder-btn active text-left" data-action="assessment-state" data-key="ai" data-val="none">No AI</button><button class="builder-btn text-left" data-action="assessment-state" data-key="ai" data-val="plan">AI to plan</button><button class="builder-btn text-left" data-action="assessment-state" data-key="ai" data-val="collaborate">AI to collaborate</button><button class="builder-btn text-left" data-action="assessment-state" data-key="ai" data-val="critique">Critique the AI</button></div><p id="assess-ai-hint" class="hidden text-[11px] text-slate-500 mt-2 leading-snug"></p></div></div>
+<div class="mt-3"><span class="text-[10px] font-bold text-slate-500 uppercase tracking-widest block mb-1">Add to the assessment</span><div class="flex flex-wrap gap-2" id="assess-curric-chips"><button class="builder-btn text-left" data-action="assessment-state" data-key="context" data-val="local">Use Local Context</button><button class="builder-btn text-left" data-action="assessment-state" data-key="maori" data-val="integrate">Mātauranga Māori</button><button class="builder-btn text-left" data-action="assessment-state" data-key="lit" data-val="integrate">Literacy focus</button><button class="builder-btn text-left" data-action="assessment-state" data-key="num" data-val="integrate">Numeracy focus</button></div><p class="text-[10px] text-slate-500 mt-2 leading-snug">Click to switch on, click again to switch off. Nothing is added unless you switch it on.</p></div></div><div class="rounded-xl border border-purple-300 bg-purple-50 p-4" id="assess-devices-container"><span class="text-xs font-black text-purple-800 uppercase tracking-widest block mb-3">Device Use</span><div class="flex flex-col gap-2" id="assess-devices-opts"><button class="builder-btn text-left" data-action="assessment-state" data-key="devices" data-val="book">No devices (paper)</button><button class="builder-btn text-left" data-action="assessment-state" data-key="devices" data-val="some">Some devices</button><button class="builder-btn text-left" data-action="assessment-state" data-key="devices" data-val="all">All devices</button></div><p class="text-[10px] text-slate-500 mt-2 leading-snug">Click an option again to turn it off.</p><p id="assess-device-hint" class="hidden text-[11px] text-slate-500 mt-2 leading-snug"></p></div><div class="rounded-xl border border-purple-300 bg-purple-50 p-4" id="assess-ai-container"><span class="text-xs font-black text-purple-800 uppercase tracking-widest block mb-3">Student AI Use</span><div class="flex flex-col gap-2" id="assess-ai-opts"><button class="builder-btn active text-left" data-action="assessment-state" data-key="ai" data-val="none">No AI Use</button><button class="builder-btn text-left" data-action="assessment-state" data-key="ai" data-val="plan">AI to plan</button><button class="builder-btn text-left" data-action="assessment-state" data-key="ai" data-val="collaborate">AI to collaborate</button><button class="builder-btn text-left" data-action="assessment-state" data-key="ai" data-val="critique">Critique the AI</button></div><p id="assess-ai-hint" class="hidden text-[11px] text-slate-500 mt-2 leading-snug"></p></div></div>
                 <div class="mt-4 pt-6 border-t border-slate-200 grid md:grid-cols-2 gap-4 items-start">
                     <details class="group bg-sky-50 rounded-xl border border-sky-400">
 <summary class="cursor-pointer list-none p-3 flex justify-between items-center text-xs font-bold text-sky-800 uppercase tracking-widest">
@@ -5975,40 +5969,45 @@
 
         // The school's own local area, set once in the Local Context modal and reused
         // everywhere "Use Local Context" is selected, instead of a hardcoded school/region.
+        // Local Area data now lives in School Profile (see schoolProfile.schoolName /
+        // .postcode / .iwi / .localNotes), set once for the whole school instead of
+        // separately by each teacher. localContextInfo stays as a plain in-memory
+        // mirror of those fields so the many existing call sites below (and the
+        // document-header templates further down the file) don't need to change --
+        // only its source of truth moved.
         var localContextInfo = { schoolName: '', postcode: '', iwi: '', notes: '' };
-        function saveLocalContextInfoState() { try { saveUnifiedState({ localContextInfo: localContextInfo }); } catch (e) {} }
+        function syncLocalContextInfoFromSchoolProfile() {
+            localContextInfo.schoolName = schoolProfile.schoolName || '';
+            localContextInfo.postcode = schoolProfile.postcode || '';
+            localContextInfo.iwi = schoolProfile.iwi || '';
+            localContextInfo.notes = schoolProfile.localNotes || '';
+        }
+        // One-time migration for sessions saved before Local Area moved into School
+        // Profile: if School Profile's own fields are still empty but an old
+        // standalone "localContextInfo" was saved under its own key, copy it across
+        // once so nobody's already-entered details are lost. Must run after
+        // loadSchoolProfile() so schoolProfile's persisted values are loaded first.
         function loadLocalContextInfo() {
             try {
                 var data = loadUnifiedState();
-                if (data.localContextInfo) Object.assign(localContextInfo, data.localContextInfo);
+                if (data.localContextInfo && !schoolProfile.schoolName && !schoolProfile.postcode && !schoolProfile.iwi && !schoolProfile.localNotes) {
+                    var legacy = data.localContextInfo;
+                    schoolProfile.schoolName = legacy.schoolName || '';
+                    schoolProfile.postcode = legacy.postcode || '';
+                    schoolProfile.iwi = legacy.iwi || '';
+                    schoolProfile.localNotes = legacy.notes || '';
+                    saveSchoolProfileState();
+                }
             } catch (e) {}
+            syncLocalContextInfoFromSchoolProfile();
         }
+        // The "Local Context" gear icons in Lesson Builder / Unit Planner / Assessment
+        // Generator now open School Profile's own Local Area section directly (an
+        // explicit click to go set/check it, so it skips straight to the editable
+        // form and scrolls there even if the profile is already locked in), rather
+        // than a separate small modal of its own.
         function openLocalContextModal() {
-            var m = document.getElementById('local-context-modal'); if (!m) return;
-            var school = document.getElementById('local-context-school');
-            var postcode = document.getElementById('local-context-postcode');
-            var iwi = document.getElementById('local-context-iwi');
-            var notes = document.getElementById('local-context-notes');
-            if (school) school.value = localContextInfo.schoolName || '';
-            if (postcode) postcode.value = localContextInfo.postcode || '';
-            if (iwi) iwi.value = localContextInfo.iwi || '';
-            if (notes) notes.value = localContextInfo.notes || '';
-            m.classList.remove('hidden');
-        }
-        function closeLocalContextModal() {
-            var m = document.getElementById('local-context-modal'); if (m) m.classList.add('hidden');
-        }
-        function saveLocalContextModal() {
-            var school = document.getElementById('local-context-school');
-            var postcode = document.getElementById('local-context-postcode');
-            var iwi = document.getElementById('local-context-iwi');
-            var notes = document.getElementById('local-context-notes');
-            localContextInfo.schoolName = school ? school.value.trim() : '';
-            localContextInfo.postcode = postcode ? postcode.value.trim() : '';
-            localContextInfo.iwi = iwi ? iwi.value.trim() : '';
-            localContextInfo.notes = notes ? notes.value.trim() : '';
-            saveLocalContextInfoState();
-            closeLocalContextModal();
+            openSchoolProfileModal(false, true);
         }
         function localContextSummary() {
             if (localContextInfo.schoolName || localContextInfo.postcode) {
@@ -6122,7 +6121,7 @@
         // The school-wide default. Persisted like Local Context / Teaching Profile, but
         // conceptually "the school's", not "mine" or "this device's" — it is set once
         // from the School Profile panel and then used everywhere a lesson is generated.
-        var schoolProfile = { framework: 'cpm', structuredLiteracy: false, structuredMaths: false, locked: false, schoolType: 'y1_13', customYearFrom: 1, customYearTo: 13, communityContextOn: false, communityContext: '' };
+        var schoolProfile = { framework: 'cpm', structuredLiteracy: false, structuredMaths: false, locked: false, schoolType: 'y1_13', customYearFrom: 1, customYearTo: 13, communityContextOn: false, communityContext: '', schoolName: '', postcode: '', iwi: '', localNotes: '' };
         function saveSchoolProfileState() { try { saveUnifiedState({ schoolProfile: schoolProfile }); } catch (e) {} }
         function loadSchoolProfile() {
             try {
@@ -6260,7 +6259,7 @@
             var wrap = document.getElementById('school-type-custom-wrap');
             if (wrap) wrap.classList.toggle('hidden', !(checked && checked.value === 'other'));
         }
-        function openSchoolProfileModal(forced) {
+        function openSchoolProfileModal(forced, focusLocal) {
             var m = document.getElementById('school-profile-modal'); if (!m) return;
             schoolProfileModalForced = !!forced;
             var radios = document.querySelectorAll('input[name="school-fw"]');
@@ -6270,6 +6269,10 @@
             var ccOn = document.getElementById('school-community-context-on'); if (ccOn) ccOn.checked = !!schoolProfile.communityContextOn;
             var ccText = document.getElementById('school-community-context-text');
             if (ccText) { ccText.value = schoolProfile.communityContext || ''; ccText.classList.toggle('hidden', !schoolProfile.communityContextOn); }
+            var locName = document.getElementById('school-local-name'); if (locName) locName.value = schoolProfile.schoolName || '';
+            var locPostcode = document.getElementById('school-local-postcode'); if (locPostcode) locPostcode.value = schoolProfile.postcode || '';
+            var locIwi = document.getElementById('school-local-iwi'); if (locIwi) locIwi.value = schoolProfile.iwi || '';
+            var locNotes = document.getElementById('school-local-notes'); if (locNotes) locNotes.value = schoolProfile.localNotes || '';
             var typeRadios = document.querySelectorAll('input[name="school-type"]');
             for (var j = 0; j < typeRadios.length; j++) typeRadios[j].checked = (typeRadios[j].value === (schoolProfile.schoolType || 'y1_13'));
             var cFrom = document.getElementById('school-type-custom-from'); if (cFrom) cFrom.value = schoolProfile.customYearFrom || 1;
@@ -6287,13 +6290,24 @@
             // read-only summary (OK / Edit) instead of dropping straight into the editable
             // form, so a casual click on the header button can't accidentally change
             // anything for the whole school.
-            var showSummary = !!schoolProfile.locked && !schoolProfileModalForced;
+            // Opened from one of the "Local Context" gear icons (focusLocal): that's an
+            // explicit "let me see/set my local area info" click, not a casual reopen, so
+            // it skips straight to the full editable form (and scrolls to that section)
+            // even for an already-locked profile, rather than stopping at the read-only
+            // summary first.
+            var showSummary = !!schoolProfile.locked && !schoolProfileModalForced && !focusLocal;
             var summaryView = document.getElementById('school-profile-summary-view');
             var editView = document.getElementById('school-profile-edit-view');
             if (summaryView) summaryView.classList.toggle('hidden', !showSummary);
             if (editView) editView.classList.toggle('hidden', showSummary);
             if (showSummary) renderSchoolProfileSummary();
             m.classList.remove('hidden');
+            if (focusLocal) {
+                setTimeout(function () {
+                    var sec = document.getElementById('school-local-area-section');
+                    if (sec) sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 50);
+            }
         }
         // Fills in the read-only summary shown when a locked-in school profile is
         // reopened — mirrors saveSchoolProfileModal's fields, just for display.
@@ -6307,6 +6321,8 @@
             var ccTxt = (schoolProfile.communityContext || '').trim();
             if (schoolProfile.communityContextOn && ccTxt) rows.push(['Community Context', '"' + escapeHtml(ccTxt) + '"']);
             else rows.push(['Community Context', 'Off']);
+            var locName = (schoolProfile.schoolName || '').trim(), locPc = (schoolProfile.postcode || '').trim();
+            rows.push(['Local Area', (locName || locPc) ? escapeHtml([locName, locPc].filter(Boolean).join(', ')) : 'Not set']);
             box.innerHTML = rows.map(function (r) {
                 return '<div><span class="font-bold text-slate-500">' + escapeHtml(r[0]) + ':</span> ' + r[1] + '</div>';
             }).join('');
@@ -6335,6 +6351,12 @@
             var ccText = document.getElementById('school-community-context-text');
             schoolProfile.communityContextOn = !!(ccOn && ccOn.checked);
             schoolProfile.communityContext = ccText ? ccText.value.trim() : '';
+            var locName = document.getElementById('school-local-name'), locPostcode = document.getElementById('school-local-postcode'), locIwi = document.getElementById('school-local-iwi'), locNotes = document.getElementById('school-local-notes');
+            schoolProfile.schoolName = locName ? locName.value.trim() : '';
+            schoolProfile.postcode = locPostcode ? locPostcode.value.trim() : '';
+            schoolProfile.iwi = locIwi ? locIwi.value.trim() : '';
+            schoolProfile.localNotes = locNotes ? locNotes.value.trim() : '';
+            syncLocalContextInfoFromSchoolProfile();
             var typeRadios = document.querySelectorAll('input[name="school-type"]');
             for (var k = 0; k < typeRadios.length; k++) if (typeRadios[k].checked) schoolProfile.schoolType = typeRadios[k].value;
             var cFrom = document.getElementById('school-type-custom-from'), cTo = document.getElementById('school-type-custom-to');
@@ -15204,8 +15226,8 @@
             if(savedTopic) { var inputs = document.querySelectorAll('.sync-topic'); for(var i=0; i<inputs.length; i++) inputs[i].value = savedTopic; }
             loadAppState();
             loadTeachingProfile();
-            loadLocalContextInfo();
             loadSchoolProfile();
+            loadLocalContextInfo();
             applySchoolFrameworkLabels();
             applySchoolTypeFilter();
             renderTeachingProfilePill();
